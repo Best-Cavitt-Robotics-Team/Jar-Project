@@ -4,9 +4,28 @@ extern brain Brain;
 
 //To set up a motor called LeftFront here, you'd use
 //extern motor LeftFront;
+extern controller Controller;
 
-//Add your devices below, and don't forget to do the same in robot-config.cpp:
 extern motor LeftFront;
+extern motor LeftMiddle;
+extern motor LeftBack;
 
+extern motor RightFront;
+extern motor RightMiddle;
+extern motor RightBack;
+
+extern motor IntakeBottom;
+extern motor IntakeMiddle;
+extern motor IntakeTop;
+//Add your devices below, and don't forget to do the same in robot-config.cpp:
+
+extern inertial Inertial;
+
+extern led Scraper1;
+extern led Scraper2;
+extern led BallStop;
+
+extern rotation VerticalOdom;
+extern rotation HorizontalOdom;
 
 void  vexcodeInit( void );
