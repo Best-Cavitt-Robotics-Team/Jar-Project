@@ -11,13 +11,13 @@ brain  Brain;
 //motor LeftFront = motor(PORT1, ratio6_1, false);
 controller Controller = controller(primary);
 
-motor LeftFront = motor(PORT3, ratio6_1, false);
-motor LeftMiddle = motor(PORT16, ratio6_1, true);
-motor LeftBack = motor(PORT1, ratio6_1, false);
+motor RightFront = motor(PORT3, ratio6_1, false);
+motor RightMiddle = motor(PORT16, ratio6_1, true);
+motor RightBack = motor(PORT1, ratio6_1, false);
 
-motor RightFront = motor(PORT17, ratio6_1, true);
-motor RightMiddle = motor(PORT11, ratio6_1, false);
-motor RightBack = motor(PORT6, ratio6_1, true);
+motor LeftFront = motor(PORT17, ratio6_1, true);
+motor LeftMiddle = motor(PORT11, ratio6_1, false);
+motor LeftBack = motor(PORT6, ratio6_1, true);
 
 motor IntakeBottom = motor(PORT10, ratio6_1, false);
 motor IntakeMiddle = motor(PORT13, ratio18_1, false);

@@ -175,7 +175,13 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      drive_test();
+      BallStop.off();
+      //drive_test();
+      chassis.drive_distance(29);
+      wait(500, msec);
+    //turn in the direction of the goal
+      chassis.turn_to_angle(-90);
+      wait(500, msec);
       break;
     case 1:         
       drive_test();
@@ -222,10 +228,73 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
+LeftBack.setVelocity(100, percent);
+LeftMiddle.setVelocity(100, percent);
+LeftFront.setVelocity(100, percent);
+
+RightBack.setVelocity(100, percent);
+RightMiddle.setVelocity(100, percent);
+RightFront.setVelocity(100, percent);
+
+
+LeftBack.spin(forward, Controller.Axis3.position(), percent);
+LeftMiddle.spin(forward, Controller.Axis3.position(), percent);
+LeftFront.spin(forward, Controller.Axis3.position(), percent);
+
+RightBack.spin(forward, Controller.Axis2.position(), percent);
+RightMiddle.spin(forward, Controller.Axis2.position(), percent);
+RightFront.spin(forward, Controller.Axis2.position(), percent);
+
+
+IntakeBottom.setVelocity(100, percent);
+IntakeMiddle.setVelocity(100, percent);
+IntakeTop.setVelocity(100, percent);
+
+    if(Controller.ButtonR1.pressing()){
+      IntakeBottom.spin(reverse);
+      IntakeMiddle.spin(forward);
+      IntakeTop.spin(forward);
+    }
+    else if(Controller.ButtonR2.pressing()){
+      IntakeBottom.spin(forward);
+      IntakeMiddle.spin(reverse);
+      IntakeTop.spin(reverse);
+    }
+    else{
+      IntakeBottom.stop();
+      IntakeMiddle.stop();
+      IntakeTop.stop();
+    }
+
+
+
+
+    if(Controller.ButtonL1.pressing()){
+      BallStop.on();
+    }
+
+    if(Controller.ButtonL2.pressing()){
+      BallStop.off();
+    }
+
+
+
+    if(Controller.ButtonX.pressing()){
+      Scraper1.on();
+      Scraper2.on();
+    }
+
+    if(Controller.ButtonY.pressing()){
+      Scraper1.off();
+      Scraper2.off();
+    }
+    
+    
+    
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    chassis.control_arcade();
+    chassis.control_tank();
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
