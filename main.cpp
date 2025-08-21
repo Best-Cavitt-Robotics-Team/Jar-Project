@@ -1,4 +1,5 @@
 #include "vex.h"
+#include "autons.h"
 
 using namespace vex;
 competition Competition;
@@ -130,10 +131,10 @@ void pre_auton() {
     Brain.Screen.printAt(5, 120, "Selected Auton:");
     switch(current_auton_selection){
       case 0:
-        Brain.Screen.printAt(5, 140, "Auton 1");
+        Brain.Screen.printAt(5, 140, "Blue Right and Right Red");
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Auton 2");
+        Brain.Screen.printAt(5, 140, "Blue Left and Red Left");
         break;
       case 2:
         Brain.Screen.printAt(5, 140, "Auton 3");
@@ -175,16 +176,13 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      BallStop.off();
-      //drive_test();
-      chassis.drive_distance(29);
-      wait(500, msec);
-    //turn in the direction of the goal
-      chassis.turn_to_angle(-90);
-      wait(500, msec);
+      blue_right();
+
+
       break;
     case 1:         
-      drive_test();
+      blue_left();
+
       break;
     case 2:
       turn_test();

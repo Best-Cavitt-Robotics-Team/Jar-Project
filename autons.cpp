@@ -127,3 +127,38 @@ void holonomic_odom_test(){
   chassis.holonomic_drive_to_pose(0, 18, 270);
   chassis.holonomic_drive_to_pose(0, 0, 0);
 }
+
+void blue_right() {
+  BallStop.off();
+  //drive_test();
+  chassis.drive_distance(28);
+  wait(500, msec);
+  //turn in the direction of the goal
+  chassis.turn_to_angle(90);
+  wait(500, msec);
+  chassis.drive_distance(13);
+  wait(500, msec);
+  //run intake
+  chassis.drive_distance(-13);
+  chassis.turn_to_angle(-90);
+  chassis.drive_distance(15);
+  //run intake
+}
+
+void blue_left(){
+
+  BallStop.off();
+  //drive_test();
+  chassis.drive_distance(28);
+  wait(500, msec);
+  //turn in the direction of the goal
+  chassis.turn_to_angle(-90);
+  wait(500, msec);
+  chassis.drive_distance(13);
+  wait(500, msec);
+  //run intake
+  chassis.drive_distance(-13);
+    chassis.turn_to_angle(180);
+  chassis.drive_distance(15);
+  //run intake
+}
