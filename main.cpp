@@ -1,5 +1,4 @@
 #include "vex.h"
-#include "autons.h"
 
 using namespace vex;
 competition Competition;
@@ -39,19 +38,19 @@ Drive chassis(
 //HOLONOMIC_TWO_ROTATION
 //
 //Write it here:
-TANK_TWO_ROTATION,
+ZERO_TRACKER_NO_ODOM,
 
 //Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(LeftFront, LeftMiddle, LeftBack),
+motor_group(),
 
 //Right Motors:
-motor_group(RightFront, RightMiddle, RightBack),
+motor_group(),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT14,
+PORT1,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -59,7 +58,7 @@ PORT14,
 //External ratio, must be in decimal, in the format of input teeth/output teeth.
 //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
 //If the motor drives the wheel directly, this value is 1:
-0.75,
+0.6,
 
 //Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
 //For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
@@ -85,21 +84,21 @@ PORT3,     -PORT4,
 //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
 //If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
 //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
-PORT5,
+3,
 
 //Input the Forward Tracker diameter (reverse it to make the direction switch):
-2,
+2.75,
 
 //Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
 //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
 //This distance is in inches:
-0.5,
+-2,
 
 //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
-PORT7,
+1,
 
 //Sideways tracker diameter (reverse to make the direction switch):
-2,
+-2.75,
 
 //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
 5.5
@@ -131,10 +130,10 @@ void pre_auton() {
     Brain.Screen.printAt(5, 120, "Selected Auton:");
     switch(current_auton_selection){
       case 0:
-        Brain.Screen.printAt(5, 140, "Blue Right and Right Red");
+        Brain.Screen.printAt(5, 140, "Auton 1");
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Blue Left and Red Left");
+        Brain.Screen.printAt(5, 140, "Auton 2");
         break;
       case 2:
         Brain.Screen.printAt(5, 140, "Auton 3");
@@ -176,13 +175,10 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      blue_right();
-
-
+      drive_test();
       break;
     case 1:         
-      blue_left();
-
+      drive_test();
       break;
     case 2:
       turn_test();
@@ -226,73 +222,10 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-LeftBack.setVelocity(100, percent);
-LeftMiddle.setVelocity(100, percent);
-LeftFront.setVelocity(100, percent);
-
-RightBack.setVelocity(100, percent);
-RightMiddle.setVelocity(100, percent);
-RightFront.setVelocity(100, percent);
-
-
-LeftBack.spin(forward, Controller.Axis3.position(), percent);
-LeftMiddle.spin(forward, Controller.Axis3.position(), percent);
-LeftFront.spin(forward, Controller.Axis3.position(), percent);
-
-RightBack.spin(forward, Controller.Axis2.position(), percent);
-RightMiddle.spin(forward, Controller.Axis2.position(), percent);
-RightFront.spin(forward, Controller.Axis2.position(), percent);
-
-
-IntakeBottom.setVelocity(100, percent);
-IntakeMiddle.setVelocity(100, percent);
-IntakeTop.setVelocity(100, percent);
-
-    if(Controller.ButtonR1.pressing()){
-      IntakeBottom.spin(reverse);
-      IntakeMiddle.spin(forward);
-      IntakeTop.spin(forward);
-    }
-    else if(Controller.ButtonR2.pressing()){
-      IntakeBottom.spin(forward);
-      IntakeMiddle.spin(reverse);
-      IntakeTop.spin(reverse);
-    }
-    else{
-      IntakeBottom.stop();
-      IntakeMiddle.stop();
-      IntakeTop.stop();
-    }
-
-
-
-
-    if(Controller.ButtonL1.pressing()){
-      BallStop.on();
-    }
-
-    if(Controller.ButtonL2.pressing()){
-      BallStop.off();
-    }
-
-
-
-    if(Controller.ButtonX.pressing()){
-      Scraper1.on();
-      Scraper2.on();
-    }
-
-    if(Controller.ButtonY.pressing()){
-      Scraper1.off();
-      Scraper2.off();
-    }
-    
-    
-    
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    chassis.control_tank();
+    chassis.control_arcade();
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
