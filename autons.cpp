@@ -127,3 +127,82 @@ void holonomic_odom_test(){
   chassis.holonomic_drive_to_pose(0, 18, 270);
   chassis.holonomic_drive_to_pose(0, 0, 0);
 }
+
+void blue_right() {
+  IntakeTop.setVelocity(100, percent);
+  IntakeBottom.setVelocity(100, percent);
+  IntakeMiddle.setVelocity(100, percent);
+  BallStop.set(false);
+  //drive_test();
+  chassis.drive_distance(30);
+  wait(500, msec);
+  //turn in the direction of the goal
+  chassis.turn_to_angle(90);
+  wait(500, msec);
+  Scraper1.set(true);
+  Scraper2.set(true);
+  wait(500, msec);
+  IntakeBottom.spin(reverse);
+  IntakeMiddle.spin(forward);
+  chassis.drive_distance(15);
+  
+  wait(500, msec); //this is how long is spins at the loader
+  Scraper1.set(false);
+  Scraper2.set(false);
+    //run intake
+  chassis.drive_distance(-9);
+  IntakeBottom.stop();
+  IntakeMiddle.stop();
+  // IntakeTop.stop();
+  chassis.turn_to_angle(-93);
+  chassis.drive_distance(19.5);
+  //run intake
+
+  IntakeBottom.spin(reverse);
+  IntakeMiddle.spin(forward);
+  IntakeTop.spin(forward);
+  wait(3000, msec);
+
+}
+
+void blue_left(){
+  IntakeTop.setVelocity(100, percent);
+  IntakeBottom.setVelocity(100, percent);
+  IntakeMiddle.setVelocity(100, percent);
+  BallStop.set(false);
+  //drive_test();
+  chassis.drive_distance(30);
+  wait(500, msec);
+  //turn in the direction of the goal
+  chassis.turn_to_angle(-90);
+  Scraper1.set(true);
+  Scraper2.set(true);
+  wait(500, msec);
+  IntakeBottom.spin(reverse);
+  IntakeMiddle.spin(forward);
+  // IntakeTop.setVelocity(100, percent);
+  chassis.drive_distance(13.75);
+  wait(2000, msec);
+  Scraper1.set(false);
+  Scraper2.set(false);
+  IntakeBottom.stop();
+  IntakeMiddle.stop();
+  //run intake
+  chassis.drive_distance(-13);
+  // IntakeBottom.setVelocity(100, percent);
+  // IntakeMiddle.setVelocity(100, percent);
+  // IntakeTop.setVelocity(100, percent);
+  chassis.turn_to_angle(0);
+  wait(100, msec);
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(17.25);
+  //run intake
+  IntakeBottom.spin(forward);
+  IntakeMiddle.spin(reverse);
+  IntakeTop.spin(reverse);
+  wait(150, msec);
+  IntakeBottom.spin(reverse);
+  IntakeMiddle.spin(forward);
+  IntakeTop.spin(forward);
+  wait(2000, msec);
+}
