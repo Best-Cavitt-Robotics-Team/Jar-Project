@@ -174,6 +174,8 @@ void pre_auton() {
 
 void autonomous(void) {
   auto_started = true;
+  WheelPiston.set(true);
+  WheelPiston.set(true);
   switch(current_auton_selection){ 
     case 0:
       blue_right();
@@ -226,6 +228,7 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
+    WheelPiston.set(true);
 LeftBack.setVelocity(100, percent);
 LeftMiddle.setVelocity(100, percent);
 LeftFront.setVelocity(100, percent);
