@@ -1,3 +1,4 @@
+
 #include "vex.h"
 #include "autons.h"
 
@@ -174,8 +175,6 @@ void pre_auton() {
 
 void autonomous(void) {
   auto_started = true;
-  WheelPiston.set(true);
-  WheelPiston.set(true);
   switch(current_auton_selection){ 
     case 0:
       blue_right();
@@ -228,28 +227,29 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-    WheelPiston.set(true);
-LeftBack.setVelocity(100, percent);
-LeftMiddle.setVelocity(100, percent);
-LeftFront.setVelocity(100, percent);
+    WheelPiston.set(false);
 
-RightBack.setVelocity(100, percent);
-RightMiddle.setVelocity(100, percent);
-RightFront.setVelocity(100, percent);
+    LeftBack.setVelocity(100, percent);
+    LeftMiddle.setVelocity(100, percent);
+    LeftFront.setVelocity(100, percent);
 
-
-LeftBack.spin(forward, Controller.Axis3.position(), percent);
-LeftMiddle.spin(forward, Controller.Axis3.position(), percent);
-LeftFront.spin(forward, Controller.Axis3.position(), percent);
-
-RightBack.spin(forward, Controller.Axis2.position(), percent);
-RightMiddle.spin(forward, Controller.Axis2.position(), percent);
-RightFront.spin(forward, Controller.Axis2.position(), percent);
+    RightBack.setVelocity(100, percent);
+    RightMiddle.setVelocity(100, percent);
+    RightFront.setVelocity(100, percent);
 
 
-IntakeBottom.setVelocity(100, percent);
-IntakeMiddle.setVelocity(100, percent);
-IntakeTop.setVelocity(100, percent);
+    LeftBack.spin(forward, Controller.Axis3.position(), volt); //if doesnt work change volt to percent
+    LeftMiddle.spin(forward, Controller.Axis3.position(), volt);
+    LeftFront.spin(forward, Controller.Axis3.position(), volt);
+
+    RightBack.spin(forward, Controller.Axis2.position(), volt);
+    RightMiddle.spin(forward, Controller.Axis2.position(), volt);
+    RightFront.spin(forward, Controller.Axis2.position(), volt);
+
+
+    IntakeBottom.setVelocity(100, percent);
+    IntakeMiddle.setVelocity(100, percent);
+    IntakeTop.setVelocity(100, percent);
 
     if(Controller.ButtonR1.pressing()){
       IntakeBottom.spin(reverse);
@@ -261,6 +261,16 @@ IntakeTop.setVelocity(100, percent);
       IntakeMiddle.spin(reverse);
       IntakeTop.spin(reverse);
     }
+    else if(Controller.ButtonL1.pressing()){
+      IntakeBottom.spin(reverse);
+      IntakeMiddle.spin(forward);
+      IntakeTop.spin(reverse);
+    }
+    
+    else if(Controller.ButtonL2.pressing()){
+      IntakeBottom.spin(reverse);
+      IntakeMiddle.spin(forward);
+    }
     else{
       IntakeBottom.stop();
       IntakeMiddle.stop();
@@ -270,14 +280,14 @@ IntakeTop.setVelocity(100, percent);
 
 
 
-    if(Controller.ButtonL1.pressing()){
+
+    if(Controller.ButtonUp.pressing()){
       BallStop.on();
     }
 
-    if(Controller.ButtonL2.pressing()){
+    if(Controller.ButtonDown.pressing()){
       BallStop.off();
     }
-
 
 
     if(Controller.ButtonX.pressing()){
